@@ -28,8 +28,9 @@
 <script type="text/javascript" src="./js/tools.js"></script>
 <script type="text/javascript">
 function submitForm() {
+
 	var xhr
-	  , url = "./pages/login.php"
+	  , url = "login.php"
 	  , delta = .25;
 
 	if(window.addEventListener) xhr = new XMLHttpRequest;
@@ -38,13 +39,14 @@ function submitForm() {
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xhr.onreadystatechange = function(){
+		
 		var res , errno , msg , noop = function(){};
-
 		if(xhr.readyState == 4 && xhr.status == 200) {
+		alert(1);
 			res = eval('(' + xhr.responseText + ')');
 			errno = res.errno;
 			msg = res.msg;
-
+			
 			switch(+errno) {
 				case 0:
 					window.location.href = "./succ.php";
@@ -66,6 +68,7 @@ function submitForm() {
 			Tool.info.show(msg, noop);
 		});
 	};
+	
 	xhr.send($.param({"user":$("#user").val(),"pwd":$("#pwd").val(), "t": new Date*1}));
 }
 
